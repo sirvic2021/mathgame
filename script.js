@@ -147,6 +147,8 @@ function showCelebrationScreen() {
   // Авторазблокировка через 5 секунд
   setTimeout(() => {
     applause.pause();
+    continueGame(); // скрываем экран празднования
+    newTask(); // показываем новый пример
   }, 5000);
 }
 
