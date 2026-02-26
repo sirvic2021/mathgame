@@ -177,7 +177,7 @@ window.addEventListener('load', () => {
 
 function showInstallBanner() {
   const banner = document.createElement('div');
-  banner.textContent = "Установите Math Game!";
+  banner.textContent = "Установить игру";
   banner.style.position = "fixed";
   banner.style.top = "0";
   banner.style.left = "50%";
