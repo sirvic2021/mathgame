@@ -184,8 +184,8 @@ function showInstallBanner() {
   banner.style.transform = "translateX(-50%)"; // по центру
   banner.style.background = "#ff6600"; // ярко оранжевый
   banner.style.color = "#fff";
-  banner.style.padding = "15px 30px";
-  banner.style.fontSize = "18px";
+  banner.style.padding = "5px 5px";
+  banner.style.fontSize = "16px";
   banner.style.fontWeight = "bold";
   banner.style.borderRadius = "0 0 10px 10px"; // закругление снизу
   banner.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
