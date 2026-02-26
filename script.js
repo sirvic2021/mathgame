@@ -154,59 +154,53 @@ function continueGame() {
   document.getElementById("celebration-screen").classList.add("celebration-hidden");
 }
 
-// ================= PWA Install Prompt =================
+// ===== PWA Install Prompt Banner =====
 let deferredPrompt;
 
-// Регистрируем Service Worker
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/mathgame/service-worker.js")
-    .then(() => console.log("SW registered"))
-    .catch(err => console.log("SW error", err));
-}
-
-// Перехватываем событие установки PWA
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Отменяем стандартный Chrome баннер
   deferredPrompt = e;
 });
 
 window.addEventListener('appinstalled', () => {
   console.log('Приложение установлено!');
-  deferredPrompt = null;
+  deferredPrompt = null; // больше не показываем баннер
 });
 
-// Показываем кнопку через 5 секунд
 window.addEventListener('load', () => {
   setTimeout(() => {
-    if (deferredPrompt) {
-      showInstallButton();
+    if (deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
+      showInstallBanner();
     }
-  }, 5000);
+  }, 5000); // ждем 5 секунд
 });
 
-function showInstallButton() {
-  const btn = document.createElement('button');
-  btn.textContent = "Установить приложение";
-  btn.style.position = "fixed";
-  btn.style.bottom = "20px";
-  btn.style.right = "20px";
-  btn.style.padding = "10px 20px";
-  btn.style.background = "#2196f3";
-  btn.style.color = "#fff";
-  btn.style.border = "none";
-  btn.style.borderRadius = "5px";
-  btn.style.fontSize = "16px";
-  btn.style.zIndex = "1000";
-  document.body.appendChild(btn);
+function showInstallBanner() {
+  const banner = document.createElement('div');
+  banner.textContent = "Установите Math Game!";
+  banner.style.position = "fixed";
+  banner.style.top = "0";
+  banner.style.left = "50%";
+  banner.style.transform = "translateX(-50%)"; // по центру
+  banner.style.background = "#ff6600"; // ярко оранжевый
+  banner.style.color = "#fff";
+  banner.style.padding = "15px 30px";
+  banner.style.fontSize = "18px";
+  banner.style.fontWeight = "bold";
+  banner.style.borderRadius = "0 0 10px 10px"; // закругление снизу
+  banner.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
+  banner.style.zIndex = "9999";
+  banner.style.textAlign = "center";
+  banner.style.cursor = "pointer";
+  document.body.appendChild(banner);
 
-  btn.addEventListener('click', async () => {
+  banner.addEventListener('click', async () => {
     if (deferredPrompt) {
-      deferredPrompt.prompt();
+      deferredPrompt.prompt(); // стандартное окно установки
       const { outcome } = await deferredPrompt.userChoice;
       console.log('User choice:', outcome);
       deferredPrompt = null;
-      btn.remove();
+      banner.remove(); // убираем баннер после выбора
     }
   });
 }
-// =======================================================
