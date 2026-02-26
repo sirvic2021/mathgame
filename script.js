@@ -145,15 +145,16 @@ function showCelebrationScreen() {
   }
 
   // Авторазблокировка через 5 секунд
-  setTimeout(() => {
-    applause.pause();
-    continueGame(); // скрываем экран празднования
-    newTask(); // показываем новый пример
-  }, 5000);
+  //setTimeout(() => {
+  //  applause.pause();
+  //  continueGame(); // скрываем экран празднования
+  //  newTask(); // показываем новый пример
+  //}, 5000);
 }
 
 function continueGame() {
   document.getElementById("celebration-screen").classList.add("celebration-hidden");
+  newTask();
 }
 
 // ===== PWA Install Prompt Banner =====
