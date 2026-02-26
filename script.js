@@ -153,3 +153,60 @@ function showCelebrationScreen() {
 function continueGame() {
   document.getElementById("celebration-screen").classList.add("celebration-hidden");
 }
+
+// ================= PWA Install Prompt =================
+let deferredPrompt;
+
+// Регистрируем Service Worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/mathgame/service-worker.js")
+    .then(() => console.log("SW registered"))
+    .catch(err => console.log("SW error", err));
+}
+
+// Перехватываем событие установки PWA
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('Приложение установлено!');
+  deferredPrompt = null;
+});
+
+// Показываем кнопку через 5 секунд
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (deferredPrompt) {
+      showInstallButton();
+    }
+  }, 5000);
+});
+
+function showInstallButton() {
+  const btn = document.createElement('button');
+  btn.textContent = "Установить приложение";
+  btn.style.position = "fixed";
+  btn.style.bottom = "20px";
+  btn.style.right = "20px";
+  btn.style.padding = "10px 20px";
+  btn.style.background = "#2196f3";
+  btn.style.color = "#fff";
+  btn.style.border = "none";
+  btn.style.borderRadius = "5px";
+  btn.style.fontSize = "16px";
+  btn.style.zIndex = "1000";
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('User choice:', outcome);
+      deferredPrompt = null;
+      btn.remove();
+    }
+  });
+}
+// =======================================================
