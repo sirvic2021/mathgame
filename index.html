@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Игра: Сложение и Вычитание</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2196f3">
 </head>
 <body>
   <div class="game-container">
@@ -26,5 +28,12 @@
   <audio id="correct-sound" src="correct.mp3"></audio>
   <audio id="wrong-sound" src="wrong.mp3"></audio>
   <script src="script.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/mathgame/service-worker.js")
+      .then(() => console.log("SW registered"))
+      .catch(err => console.log("SW error", err));
+  }
+  </script>
 </body>
 </html>
