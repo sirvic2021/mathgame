@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Игра: Сложение и Вычитание</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1 id="game-title">Игра: Сложение и Вычитание до 10</h1>
+    <div id="task" class="task"></div>
+    <div id ="correct-result" class="correct-result"></div>
+    <div id="answers" class="answers"></div>
+    <div id="result" class="result"></div>
+    <button id="next">Далее</button>
+  </div>
+  <div id="celebration-screen" class="celebration-hidden">
+  <div class="celebration-content">
+    <h2>НИКИТА молодец! 🎉</h2>
+    <button onclick="continueGame()">Продолжить</button>
+  </div>
+  </div>
+
+  <audio id="applause-sound" src="applause.mp3"></audio>
+  <audio id="correct-sound" src="correct.mp3"></audio>
+  <audio id="wrong-sound" src="wrong.mp3"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
